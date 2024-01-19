@@ -21,6 +21,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/todos")
+@CrossOrigin(origins = {"http://localhost:3000"})// 허용할 클라이언트 아이피
 public class TodoController {
     private final TodoService todoService;
 
