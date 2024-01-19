@@ -36,4 +36,9 @@ public class UserService {
         return new UserSinUpResponseDTO(saved); // 회원가입 정보를 클라이언트에게 리턴
 
     }
+
+    // 이메일 중복확인
+    public boolean isDuplicateEmail(String email){
+        return userRepository.existsByEmail(email);
+    }
 }

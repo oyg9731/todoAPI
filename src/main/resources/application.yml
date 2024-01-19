@@ -21,3 +21,4 @@ logging:
   level:
     root: info
     org.hibernate.sql: debug
+    com.study.todoapi : debug

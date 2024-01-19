@@ -33,7 +33,8 @@ public class UserSinUpRequestDTO {
     public User toEntity(PasswordEncoder encoder){
         return User.builder()
                 .email(this.email)
-                .password(this.userName)
+                .password(encoder.encode(this.password))
+                .username(this.userName)
                 .build();
     }
 }
