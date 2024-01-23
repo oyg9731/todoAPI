@@ -1,6 +1,8 @@
 package com.study.todoapi.user.controller;
 
+import com.study.todoapi.user.dto.request.LoginRequestDTO;
 import com.study.todoapi.user.dto.request.UserSinUpRequestDTO;
+import com.study.todoapi.user.dto.response.LoginResponseDTO;
 import com.study.todoapi.user.dto.response.UserSinUpResponseDTO;
 import com.study.todoapi.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
+//@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     private final UserService userService;
@@ -44,7 +47,22 @@ public class UserController {
     public ResponseEntity<?> check(String email){
         boolean flag = userService.isDuplicateEmail(email);
         log.debug("{} 중복?? - {}", email, flag);
-
+        log.info("{}", email);
         return ResponseEntity.ok().body(flag);
+    }
+
+    // 로그인 요청처리
+    @PostMapping("/signin")
+    public ResponseEntity<?> signIn(
+            @Validated @RequestBody LoginRequestDTO dto
+    ) {
+        try {
+            LoginResponseDTO responseDTO = userService.authenticate(dto);
+            log.info("login success!! by {}", responseDTO.getEmail());
+            return ResponseEntity.ok().body(responseDTO);
+        } catch (RuntimeException e) {
+            log.warn(e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
