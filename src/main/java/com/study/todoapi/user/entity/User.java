@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter@Getter@ToString
+@Setter@Getter
+@ToString(exclude = "todoList")
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
