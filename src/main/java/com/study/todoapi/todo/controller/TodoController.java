@@ -7,6 +7,7 @@ import com.study.todoapi.todo.dto.response.TodoDetailResponseDTO;
 import com.study.todoapi.todo.dto.response.TodoListResponseDTO;
 import com.study.todoapi.todo.entity.Todo;
 import com.study.todoapi.todo.service.TodoService;
+import org.springframework.http.HttpStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +46,12 @@ public class TodoController {
         try {
             TodoListResponseDTO dtoList = todoService.create(dto, userInfo.getEmail());
             return ResponseEntity.ok().body(dtoList);
+        }catch (IllegalStateException e) {
+            // 권한에 따른 에러
+            log.warn(e.getMessage());
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(e.getMessage());
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity
