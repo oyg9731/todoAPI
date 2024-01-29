@@ -30,11 +30,12 @@ public class UserSinUpRequestDTO {
     private String userName;
 
     // 엔터티로 변환해주는 메서드
-    public User toEntity(PasswordEncoder encoder){
+    public User toEntity(PasswordEncoder encoder, String profileImage){
         return User.builder()
                 .email(this.email)
                 .password(encoder.encode(this.password))
                 .username(this.userName)
+                .prfileImg(profileImage)
                 .build();
     }
 }
