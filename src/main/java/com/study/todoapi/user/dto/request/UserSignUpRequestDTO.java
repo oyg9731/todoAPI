@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserSinUpRequestDTO {
+public class UserSignUpRequestDTO {
 
     @NotBlank
     @Email
@@ -35,7 +35,7 @@ public class UserSinUpRequestDTO {
                 .email(this.email)
                 .password(encoder.encode(this.password))
                 .username(this.userName)
-                .prfileImg(profileImage)
+                .profileImg(profileImage)
                 .build();
     }
 }

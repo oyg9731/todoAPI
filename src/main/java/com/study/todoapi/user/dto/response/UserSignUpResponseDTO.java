@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserSinUpResponseDTO {
+public class UserSignUpResponseDTO {
 
     private String email;
     private String userName;
@@ -23,7 +23,7 @@ public class UserSinUpResponseDTO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime joinDate;
 
-    public UserSinUpResponseDTO(User user){
+    public UserSignUpResponseDTO(User user){
         this.email = user.getEmail();
         this.userName = user.getUsername();
         this.joinDate = user.getJoinDate();

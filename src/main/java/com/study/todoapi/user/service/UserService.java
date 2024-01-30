@@ -4,10 +4,9 @@ import com.study.todoapi.auth.TokenProvider;
 import com.study.todoapi.auth.TokenUserInfo;
 import com.study.todoapi.exception.NoRegisteredArgumentsException;
 import com.study.todoapi.user.dto.request.LoginRequestDTO;
-import com.study.todoapi.user.dto.request.LoginRequestDTO.LoginRequestDTOBuilder;
-import com.study.todoapi.user.dto.request.UserSinUpRequestDTO;
+import com.study.todoapi.user.dto.request.UserSignUpRequestDTO;
 import com.study.todoapi.user.dto.response.LoginResponseDTO;
-import com.study.todoapi.user.dto.response.UserSinUpResponseDTO;
+import com.study.todoapi.user.dto.response.UserSignUpResponseDTO;
 import com.study.todoapi.user.entity.Role;
 import com.study.todoapi.user.entity.User;
 import com.study.todoapi.user.repository.UserRepository;
@@ -36,7 +35,7 @@ public class UserService {
     private String rootPath; // 파일 루트 경로
 
     // 회원가입 처리
-    public UserSinUpResponseDTO create(UserSinUpRequestDTO dto, String profileImage){
+    public UserSignUpResponseDTO create(UserSignUpRequestDTO dto, String profileImage){
 
         if (dto == null){
             throw new RuntimeException("회원가입 입력정보가 없습니다!");
@@ -51,7 +50,7 @@ public class UserService {
 
         log.info("회원가입 성공!! - {}", saved);
 
-        return new UserSinUpResponseDTO(saved); // 회원가입 정보를 클라이언트에게 리턴
+        return new UserSignUpResponseDTO(saved); // 회원가입 정보를 클라이언트에게 리턴
 
     }
 
@@ -125,6 +124,17 @@ public class UserService {
         File uploadFile = new File(rootDir + "/" + uniqueFileName);
         originalFile.transferTo(uploadFile);
 
-        return null;
+        return uniqueFileName;
     }
+
+    // 로그인한 회원의 프로필 사진 저장 경로를  조회
+    public String getProfilePath(String email){
+
+        // db에서 파일명을 조회
+        User user = userRepository.findByEmail(email).orElseThrow();
+        String fileName = user.getProfileImg();
+
+        return rootPath + "/" + fileName;
+    }
+
 }

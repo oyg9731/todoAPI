@@ -45,7 +45,7 @@ public class User {
     @Builder.Default // 회원가입시 자동으로 기본값처리
     private Role role = Role.COMMON;
 
-    private String prfileImg; // 프로필 사진 이미지 경로
+    private String profileImg; // 프로필 사진 이미지 경로
 
     @OneToMany(mappedBy = "user")
     private List<Todo> todoList = new ArrayList<>();

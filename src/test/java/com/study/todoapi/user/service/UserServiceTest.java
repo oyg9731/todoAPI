@@ -1,9 +1,9 @@
 package com.study.todoapi.user.service;
 
 
-import com.study.todoapi.user.dto.request.UserSinUpRequestDTO;
+import com.study.todoapi.user.dto.request.UserSignUpRequestDTO;
 
-import com.study.todoapi.user.dto.response.UserSinUpResponseDTO;
+import com.study.todoapi.user.dto.response.UserSignUpResponseDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +25,13 @@ class UserServiceTest {
     @DisplayName("회원가입을 하면 비밀번호가 인코딩되어 디비에 저장된다")
     void saveTest() {
         //given
-        UserSinUpRequestDTO dto = UserSinUpRequestDTO.builder()
+        UserSignUpRequestDTO dto = UserSignUpRequestDTO.builder()
                 .email("bbb1234@bbb.com")
                 .password("bbb1234!")
                 .userName("외계인")
                 .build();
         //when
-        UserSinUpResponseDTO responseDTO = userService.create(dto);
+        UserSignUpResponseDTO responseDTO = userService.create(dto);
 
         //then
         assertEquals("외계인", responseDTO.getUserName());
